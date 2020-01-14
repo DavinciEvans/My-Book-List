@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ name }}'s BookList</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/static/style.css" type="text/css">
-    <link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css">
     <link rel="icon" href={{ url_for('static', filename="logo.png") }}>
     <style>
 .book-list {
@@ -46,11 +47,11 @@
     </div>
     <div class="mdui-container">
         <div class="mdui-row">
-            <div class="mdui-col-xs-1">
+            <div class="mdui-col-sm-1 mdui-col-xs-3">
             <img src={{ url_for('static', filename='avatar.jpg') }}
                  alt="avatar" class="mdui-img-circle mdui-center mdui-img-fluid"></div>
 
-            <div class="mdui-col-xs-4"><h2 class="mdui-m-t-4">{{ name }}'s BookList</h2></div></div>
+            <div class="mdui-col-sm-6 mdui-col-xs-6"><h1 class="mdui-m-t-3">{{ name }}'s BookList</h1></div></div>
 
     <p class="mdui-typo-caption-opacity mdui-m-t-4">{{ BookList | length }} Books</p>
     <ul class="book-list">
