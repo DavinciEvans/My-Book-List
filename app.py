@@ -5,14 +5,23 @@ import sys
 import click
 
 app = Flask(__name__)
-WIN = sys.platform.startswith('win')
+WIN = sys.platform.startswith('win')  # 检测是否为windows
 if WIN:  # 如果是 Windows 系统，使用三个斜线
     prefix = 'sqlite:///'
 else:  # 否则使用四个斜线
     prefix = 'sqlite:////'
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 关闭对模型修改的监控
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 关闭对模型修改的监控，提高性能，官方推荐关闭
 db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60))
+
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(60))
+    author = db.Column(db.String(60))
 
 @app.cli.command()
 def forge():
@@ -44,21 +53,20 @@ def initdb(drop):
     db.create_all()
     click.echo("Initial database successful!")
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60))
-
-class Book(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(60))
-    author = db.Column(db.String(60))
+# 该函数可以用于设置一个全局变量，里面的东西会在任意模板中生效
+@app.context_processor
+def inject_user():  # 函数名可以随意修改
+    user = User.query.first()
+    return dict(user=user)  # 需要返回字典，等同于return {'user': user}
 
 @app.route('/', methods=['GET'])
 def index():
-    name = User.query.first().name
     BookList = Book.query.all()
-    return render_template("index.html", BookList=BookList, name=name)
+    return render_template("index.html", BookList=BookList)
 
+@app.errorhandler(404)
+def page_not_found(e): # 接受异常对象来作为参数
+    return render_template("404.html"), 404
 
 if __name__ == '__main__':
     app.run()

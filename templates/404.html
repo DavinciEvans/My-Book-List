@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul class="book-list">
+        <li style="text-align: center">
+            <strong style="font-size: 1.5em" class="mdui-typo">404 Not Found</strong>
+            <p class="mdui-typo mdui-m-t-0 mdui-m-b-0"><a href={{ url_for('index') }}>back to home</a></p>
+        </li>
+    </ul>
+
+{% endblock %}
