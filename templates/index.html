@@ -2,7 +2,7 @@
 
 {% block content %}
     <p class="mdui-typo-caption-opacity mdui-m-t-4">{{ BookList | length }} Books</p>
-
+    {% if current_user.is_authenticated %}
     <form method="post">
     <div class="mdui-container-fluid mdui-p-l-0 mdui-m-b-2">
     <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-2 mdui-p-l-0 mdui-p-t-0">
@@ -18,30 +18,22 @@
     </div>
     </div>
     </form>
-    {% for message in get_flashed_messages() %}
-        {% if message == '添加书籍成功！' or message == "数据已更新！" %}
-        <div class="alert alert-success alert-dismissable mdui-m-t-1">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-            &times; </button>
-        {{ message }}</div>
-        {% else %}
-            <div class="alert alert-danger alert-dismissable mdui-m-t-1">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-            &times; </button>
-        {{ message }}</div>
-        {% endif %}
-    {% endfor %}
+    {% endif %}
     <ul class="book-list">
         {% for book in BookList %}
             <li>{{ book.title }} - {{ book.author }}
-                <span class="mdui-float-right"><form method="post" action={{ url_for('book_delete', book_id=book.id) }}>
+            {% if current_user.is_authenticated %}
+                <span class="mdui-float-right">
+                    <form method="post" action={{ url_for('book_delete', book_id=book.id) }}>
                 <button class="btn-to-a" type="submit" name="delete" value="Delete" onclick="return confirm('确定删除？')">
                     <i class="mdui-icon material-icons">&#xe5cd;</i>
                 </button>
-            </form></span>
+                </form></span>
             <span class="mdui-float-right mdui-typo">
                 <a style="display: inline;" href={{ url_for('book_edit', book_id=book.id) }}>EDIT</a>
-            </span></li>
+            </span>
+            {% endif %}
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
