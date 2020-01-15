@@ -6,7 +6,7 @@
 }
 
 .book-list li {
-    padding: 12px 24px;
+    padding: 12px 12px 12px 24px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -16,4 +16,19 @@
 
 .book-list li:hover {
     background-color: #f8f9fa;
+}
+
+.btn-to-a{
+    outline: none;
+    border: none;
+    text-decoration: none;
+    background-color: rgba(0,0,0,0);
+    display: inline;
+
+    padding-right: 0;
+}
+
+.btn-to-a i{
+    color: #CFD8DC;
+    font-size: 1em;
 }
