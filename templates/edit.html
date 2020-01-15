@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 class="mdui-typo">Book Edit</h2>
+    <div class="mdui-divider mdui-m-b-2"></div>
+    <form method="post">
+    <div class="mdui-container-fluid mdui-p-l-0">
+    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-2 mdui-p-l-0 mdui-p-t-0">
+        <label class="mdui-textfield-label" for="title">Title</label>
+        <input class="mdui-textfield-input" type="text" name="title"  autocomplete="off" required value={{ book.title }}>
+    </div>
+    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-2  mdui-p-t-0">
+        <label class="mdui-textfield-label" for="author">Author</label>
+        <input class="mdui-textfield-input" type="text" name="author"  autocomplete="off" required value={{ book.author }}></div>
+    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-2  mdui-p-t-0">
+        <label class="mdui-textfield-label" for="author">&nbsp;</label>
+    <input class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-col-xs-4" type="submit" name="submit" value="SUBMIT">
+    </div>
+    </div>
+    </form>
+{% endblock %}

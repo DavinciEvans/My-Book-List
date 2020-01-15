@@ -2,9 +2,38 @@
 
 {% block content %}
     <p class="mdui-typo-caption-opacity mdui-m-t-4">{{ BookList | length }} Books</p>
+
+    <form method="post">
+    <div class="mdui-container-fluid mdui-p-l-0 mdui-m-b-2">
+    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-2 mdui-p-l-0 mdui-p-t-0">
+        <label class="mdui-textfield-label" for="title">Title</label>
+        <input class="mdui-textfield-input" type="text" name="title"  autocomplete="off" required/>
+    </div>
+    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-2  mdui-p-t-0">
+        <label class="mdui-textfield-label" for="author">Author</label>
+        <input class="mdui-textfield-input" type="text" name="author"  autocomplete="off" required/></div>
+    <div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-2  mdui-p-t-0">
+        <label class="mdui-textfield-label" for="author">&nbsp;</label>
+    <input class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-col-xs-4" type="submit" name="submit" value="Add">
+    </div>
+    </div>
+    </form>
+    {% for message in get_flashed_messages() %}
+        {% if message == '添加书籍成功！' or message =="数据已更新！" %}
+        <div class="alert alert-success alert-dismissable mdui-m-t-1">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            &times; </button>
+        {{ message }}</div>
+        {% else %}
+            <div class="alert alert-warning alert-dismissable mdui-m-t-1">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            &times; </button>
+        {{ message }}</div>
+        {% endif %}
+    {% endfor %}
     <ul class="book-list">
         {% for book in BookList %}
-            <li>{{ book.title }} - {{ book.author }}</li>
+            <li>{{ book.title }} - {{ book.author }}<span class="mdui-float-right mdui-typo"><a href={{ url_for('book_edit', book_id=book.id) }}>EDIT</a></span></li>
         {% endfor %}
     </ul>
 {% endblock %}
