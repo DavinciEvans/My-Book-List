@@ -15,9 +15,9 @@ if WIN:  # 如果是 Windows 系统，使用三个斜线
     prefix = 'sqlite:///'
 else:  # 否则使用四个斜线
     prefix = 'sqlite:////'
-app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(os.path.dirname(app.root_path), 'data.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(os.path.dirname(app.root_path), os.getenv('DATABASE_FILE', 'data.db'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 关闭对模型修改的监控，提高性能，官方推荐关闭
-app.config['SECRET_KEY'] = 'dev'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
 
 
 @app.context_processor  # 该函数可以用于设置一个全局变量，里面的东西会在任意模板中生效
