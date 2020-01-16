@@ -62,7 +62,7 @@ parsel==1.5.1
 parso==0.5.1
 pefile==2019.4.18
 pickleshare==0.7.5
-Pillow==6.1.0
+Pillow==6.2.0
 pipenv==2018.11.26
 prometheus-client==0.7.1
 prompt-toolkit==2.0.9
@@ -106,7 +106,7 @@ virtualenv-clone==0.5.3
 w3lib==1.20.0
 wcwidth==0.1.7
 webencodings==0.5.1
-Werkzeug==0.15.1
+Werkzeug==0.15.3
 widgetsnbextension==3.5.1
 wxPython==4.0.6
 yapf==0.25.0
